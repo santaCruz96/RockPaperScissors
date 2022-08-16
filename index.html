@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Камень, ножницы, бумага</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+  </div>
+  <script>
+    window.application = {
+        blocks: {},
+        screens: {},
+        renderScreen: function (screenName) {
+          if (!this.screens.hasOwnProperty(screenName)) {
+            console.log('Такого экрана не существует.');
+            return;
+          }
+
+          this.timers.forEach(timer => {
+            clearInterval(timer);
+          });
+
+          this.timers = [];
+
+          this.screens[screenName]();
+        },
+        renderBlock: function (blockName, container) {
+          if (!this.blocks.hasOwnProperty(blockName)) {
+            console.log('Такого блока не существует.');
+            return;
+          }
+          this.blocks[blockName](container);
+        },
+        timers: [],
+        player: {
+          token: '',
+          gameId: '',
+        },
+    }
+  </script>
+  <script src="request.js"></script>
+  <script src="app.js"></script>
+  <script src="statuses.js"></script>
+  <script src="template-engine.js"></script>
+</body>
+</html>
